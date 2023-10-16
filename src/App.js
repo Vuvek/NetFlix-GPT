@@ -1,10 +1,13 @@
 import './App.css';
+import Body from './Components/Body';
+import Header from './Components/Header';
+
 
 function App() {
   return (
-    <div className="text-3xl font-bold text-green-700">
-      Hello
-    </div>
+    < >
+      <Body />
+    </>
   );
 }
 
