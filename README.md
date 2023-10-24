@@ -4,6 +4,14 @@
 - Configured tailwind Css
 - Header
 - Login Form
+- SignUp Form
+- Form Validation
+- Form fields management using useReducer hook
+- Firebase Setup
+- Deploying our App to Production
+- Create Signup User Account
+- Implement SignIn User Api
+- Created Redux Store with User Slice
 
 # Features
 
