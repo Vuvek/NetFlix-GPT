@@ -1,53 +1,16 @@
 import React, { useEffect, useReducer, useState } from "react";
-import Header from "./Header";
 import { checkValidData } from "../utils/validate";
 import {
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useActions } from "../utils/hooks/reduxHook";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-
-const formReducer = (state, action) => {
-  switch (action.type) {
-    case "name": {
-      return {
-        ...state,
-        name: action.payload,
-      };
-    }
-    case "email": {
-      return {
-        ...state,
-        email: action.payload,
-      };
-    }
-    case "password": {
-      return {
-        ...state,
-        password: action.payload,
-      };
-    }
-    case "signin": {
-      return {
-        email: state.email,
-        password: state.password,
-      };
-    }
-    case "signup": {
-      return {
-        ...state,
-      };
-    }
-    default: {
-      throw new Error("Unknown Action :" + action.type);
-    }
-  }
-};
+import { BACKGROUND_IMAGE, PHOTO_URL } from "../utils/contants";
+import { formReducer } from "../utils/functions";
+import { useActions } from "../utils/hooks/useReduxHook";
 
 const initialValues = {
   name: "",
@@ -56,16 +19,14 @@ const initialValues = {
 };
 
 const Login = () => {
-  const [isSignIn, setIsSignIn] = useState(true);
-  const [error, setError] = useState(false);
-  const [state, dispatch] = useReducer(formReducer, initialValues);
   const location = useLocation();
-
-  const { addUser, removeUser } = useActions();
   const navigate = useNavigate();
+  const [error, setError] = useState(false);
+  const [isSignIn, setIsSignIn] = useState(true);
+  const { addUser } = useActions();
+  const [state, dispatch] = useReducer(formReducer, initialValues);
 
   useEffect(() => {
-    console.log(location, "location");
     if (location.pathname === "/signup") {
       setIsSignIn(false);
     } else if (location.pathname === "/signin") {
@@ -98,16 +59,15 @@ const Login = () => {
         createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
             const user = userCredential.user;
-            console.log(user);
             updateProfile(user, {
               displayName: state.name,
-              photoURL: "https://avatars.githubusercontent.com/u/82228522?v=4",
+              photoURL: PHOTO_URL,
             })
               .then(() => {
+                addUser(auth.currentUser);
                 navigate("/signin");
               })
               .catch((error) => {
-                console.log(error);
                 setError(error);
               });
           })
@@ -125,7 +85,7 @@ const Login = () => {
     dispatch({ type: name, payload: event.target.value });
     if (!checkValidData(state.email, state.password)) {
       setError(false);
-    } else {
+    } else if (!event.target.value) {
       setError("Please Enter Valid Values!");
     }
   };
@@ -142,15 +102,17 @@ const Login = () => {
     <div>
       <div className="absolute w-100 h-100">
         <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/ab180a27-b661-44d7-a6d9-940cb32f2f4a/7fb62e44-31fd-4e1f-b6ad-0b5c8c2a20ef/IN-en-20231009-popsignuptwoweeks-perspective_alpha_website_large.jpg"
+          src={BACKGROUND_IMAGE}
           alt="BackGround"
           className="w-12/12 min-h-screen object-cover object-center"
         />
       </div>
+
       <form className="w-10/12 sm:w-8/12 lg:w-4/12 absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] p-12 mx-auto text-white bg-black bg-opacity-80 rounded-lg lg:mt-16">
         <h1 className="font-bold text-3xl py-4">
           {isSignIn ? "Sign In" : "Sign Up"}
         </h1>
+
         {!isSignIn && (
           <input
             type="text"
@@ -161,6 +123,7 @@ const Login = () => {
             className="p-4 my-4 block w-[100%] bg-gray-600 rounded-lg"
           />
         )}
+
         <input
           type="text"
           value={state.email}
@@ -169,6 +132,7 @@ const Login = () => {
           placeholder="Email Address"
           className="p-4 my-4 block w-[100%] bg-gray-600 rounded-lg"
         />
+
         <input
           type="password"
           onChange={(event) => handleChange(event, "password")}
@@ -176,6 +140,7 @@ const Login = () => {
           placeholder="Password"
           className="p-4 my-4 block w-[100%] bg-gray-600 rounded-lg"
         />
+
         <button
           onClick={handleSubmit}
           className="p-4 my-6 bg-red-700 w-full rounded-lg"
@@ -185,6 +150,7 @@ const Login = () => {
         {error && (
           <p className="text-center text-red-700 font-bold text-lg">{error}</p>
         )}
+
         {isSignIn ? (
           <Link to={"/signup"} className="p-2 cursor-pointer">
             New To Netflix ? Sign Up Now

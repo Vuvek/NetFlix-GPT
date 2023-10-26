@@ -1,29 +1,21 @@
-import { onAuthStateChanged } from "firebase/auth";
-import React, { useEffect } from "react";
-import { useActions } from "../utils/hooks/reduxHook";
-import { auth } from "../utils/firebase";
-import Header from "./Header";
+import { useEffect } from "react";
+import { getNowPlayingMovies } from "../services/browse.service";
+import { useActions } from "../utils/hooks/useReduxHook";
+import MainContainer from "./MainContainer";
+import SecondaryContainer from "./SecondaryContainer";
 
 const Browse = () => {
-  const { addUser, removeUser } = useActions();
-
+  const { addNowPlayingMovies } = useActions();
   useEffect(() => {
-    return onAuthStateChanged(auth, (user) => {
-      console.log("usererewrewrwer");
-      if (user) {
-        const { uid, email, displayName, photoURL } = user;
-        addUser({ uid, email, displayName, photoURL });
-      } else {
-        console.log("dispatched actoin and userRevoved");
-        removeUser();
-      }
+    getNowPlayingMovies().then((json) => {
+      addNowPlayingMovies(json?.data?.results);
     });
   }, []);
 
   return (
     <div>
-      <Header />
-      <h1>Browse</h1>
+      <MainContainer />
+      <SecondaryContainer />
     </div>
   );
 };

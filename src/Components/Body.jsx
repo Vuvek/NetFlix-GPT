@@ -1,8 +1,8 @@
 import React from "react";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Browse from "./Browse";
 import Login from "./Login";
 import AppLayout from "./AppLayout";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 const Body = () => {
   const appRouter = createBrowserRouter([
@@ -10,6 +10,10 @@ const Body = () => {
       path: "/",
       element: <AppLayout />,
       children: [
+        {
+          path: "/",
+          element: <Browse />,
+        },
         {
           path: "/signin",
           element: <Login />,
@@ -19,7 +23,7 @@ const Body = () => {
           element: <Login />,
         },
         {
-          path: "/",
+          path: "/browse",
           element: <Browse />,
         },
       ],
