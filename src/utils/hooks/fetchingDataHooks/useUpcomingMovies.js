@@ -1,14 +1,15 @@
 
 
 import { useEffect } from "react";
-import { useActions } from "../useReduxHook";
+import { useActions, useTypeSelector } from "../useReduxHook";
 import { getUpcomingMovies } from "../../../services/browse.service";
 
 
 const useUpcomingMovies = () => {
     const { addUpcomingMovies } = useActions();
+    const {addUpcomingMovies : upcomingMovies} = useTypeSelector((store) => store.movies);
     useEffect(() => {
-      getUpcomingMovies().then((json) => {
+      !upcomingMovies.length && getUpcomingMovies().then((json) => {
         addUpcomingMovies(json?.data?.results);
       });
     }, []);

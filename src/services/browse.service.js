@@ -7,7 +7,7 @@ export const getNowPlayingMovies = async () => {
 }
 
 export const getMovieVideos = async (movieId) => {
-    const res = await axios.get(`/3/movie/${movieId}/videos?language=en-US`)
+    const res = await axios.get(`/3/movie/${movieId}/videos`)
     return res;
 }
 

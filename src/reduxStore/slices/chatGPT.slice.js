@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     showGPTSearch : false,
+    chatGptMovies : [],
+    searchedMovieNames : null,
 }
 
 const ChatGPTSlice = createSlice({
@@ -10,6 +12,11 @@ const ChatGPTSlice = createSlice({
     reducers : {
         toogleGPTSearchView : (state) => {
             state.showGPTSearch = !state.showGPTSearch;
+        },
+        addGptMovieResult : (state,action) => {
+            const { moviesResults,movieNames } = action.payload;
+            state.chatGptMovies = moviesResults;
+            state.searchedMovieNames = movieNames;
         }
     }
 })

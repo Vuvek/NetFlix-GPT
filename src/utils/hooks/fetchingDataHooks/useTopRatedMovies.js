@@ -1,14 +1,15 @@
 
 
 import { useEffect } from "react";
-import { useActions } from "../useReduxHook";
+import { useActions, useTypeSelector } from "../useReduxHook";
 import { getTopRatedMovies } from "../../../services/browse.service";
 
 
 const useTopRatedMovies = () => {
     const { addTopRatedMovies } = useActions();
+    const {addTopRatedMovies : topRatedMovies} = useTypeSelector((store) => store.movies);
     useEffect(() => {
-      getTopRatedMovies().then((json) => {
+      !topRatedMovies.length && getTopRatedMovies().then((json) => {
         addTopRatedMovies(json?.data?.results);
       });
     }, []);

@@ -100,7 +100,7 @@ const Login = () => {
 
   return (
     <div>
-      <div className="absolute w-100 h-100">
+      <div className="absolute bg-fixed w-100 h-100">
         <img
           src={BACKGROUND_IMAGE}
           alt="BackGround"
@@ -108,7 +108,7 @@ const Login = () => {
         />
       </div>
 
-      <form className="w-10/12 sm:w-8/12 lg:w-4/12 absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] p-12 mx-auto text-white bg-black bg-opacity-80 rounded-lg lg:mt-16">
+      <form className="w-full md:w-auto absolute left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] p-12 mx-auto text-white bg-black bg-opacity-80 rounded-lg lg:mt-16">
         <h1 className="font-bold text-3xl py-4">
           {isSignIn ? "Sign In" : "Sign Up"}
         </h1>

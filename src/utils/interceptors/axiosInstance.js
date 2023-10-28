@@ -1,12 +1,10 @@
 import axios from "axios";
-import { ACCESS_TOKEN } from "../contants";
-
 
 const instance = axios.create({
     baseURL : 'https://api.themoviedb.org/'
 })
 
-instance.defaults.headers.common['Authorization'] = `Bearer ${ACCESS_TOKEN}`
+instance.defaults.headers.common['Authorization'] = `Bearer ${process.env.REACT_APP_TMDB_ACCESS_TOKEN}`
 instance.defaults.headers.common['accept'] = `Application/json`
 
 

@@ -5,7 +5,7 @@ import { useTypeSelector } from "../utils/hooks/useReduxHook";
 const SecondaryContainer = () => {
   const movies = useTypeSelector((store) => store.movies);
   return (
-    <div className="">
+    <div className="bg-black">
       <MovieList
         title={"Top Rated Movies"}
         movies={movies?.addTopRatedMovies}
