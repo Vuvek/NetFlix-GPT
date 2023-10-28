@@ -6,3 +6,5 @@ export const PHOTO_URL = "https://avatars.githubusercontent.com/u/82228522?v=4"
 export const documentation_TMDB = "developer.themoviedb.org."
 
 export const ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2ZmUyNTNmMTEyMDIyNWFiMGMwMjEzYTYwMGQ3OTIxNCIsInN1YiI6IjY1MzdhMDQwMWY3NDhiMDEwNDhlOTNiZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zbjg-v9fKCAaydD3AZgPX4Gm-QqV_CK0MD5DFooVrcU"
+
+export const IMG_CDN_URL = "https://image.tmdb.org/t/p/w200"

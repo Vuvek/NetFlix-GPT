@@ -32,6 +32,12 @@ html,body {
 
 
 
+.overflow-scroll::-webkit-scrollbar { 
+    display: none; 
+} 
+
+
+
 /* html {
     font-size: 62.5%;
 }

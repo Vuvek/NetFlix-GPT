@@ -7,7 +7,7 @@ const MainContainer = () => {
   const { nowPlayingMovies: movies } = useTypeSelector((store) => store.movies);
   const [mainMovie, setMainMovie] = useState(null);
   useEffect(() => {
-    setMainMovie(movies[0]);
+    setMainMovie(movies[1]);
   }, [movies]);
 
   if (!mainMovie) return;
